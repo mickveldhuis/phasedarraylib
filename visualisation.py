@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+from phasedarraylib.utilities import decibel
+
 def plot_configuration(x, y, aspect='equal'):
         fig, frame = plt.subplots(figsize=(4, 4))
 

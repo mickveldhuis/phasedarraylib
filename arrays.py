@@ -183,8 +183,12 @@ class Array():
         freq = self.data.get('freq')
         
         if norm:
-            for i in range(freq.size):
-                af[i] = af[i] / af[i].max()
+            if isinstance(freq, list | tuple | np.ndarray):
+                for i in range(freq.size):
+                    af[i] = af[i] / af[i].max()
+                
+            else:
+                af = af / af.max()
         
         plot_array_factor_2d(af, freq, xframes=xframes, fn=fn, db_threshold=db_threshold)
     
