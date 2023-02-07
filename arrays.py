@@ -90,7 +90,7 @@ class Array():
         
         return af
 
-    def evaluate_array_factor(self, freq, spacing=0.01, sample_angles=False):
+    def evaluate_array_factor(self, freq, range=(-1, 1), spacing=0.01, sample_angles=False):
         """"Returns the array vector.
 
         Parameters
@@ -112,7 +112,7 @@ class Array():
         v_vals: float
             the direction cosine sampled in the y-direction
         """
-        uv_vals = np.arange(-1, 1 + spacing, spacing)
+        uv_vals = np.arange(range[0], range[1] + spacing, spacing)
 
         angles = np.arange(180, 360 + spacing, spacing)
         angles_rad = np.radians(angles)
@@ -175,7 +175,7 @@ class Array():
 
         plot_array_factor_1d(af, uv_vals, freq, uv=uv_coordinate, axis=axis, db_threshold=db_threshold)
     
-    def plot_2d(self, xframes=3, fn='', db_threshold=-40, norm=True):
+    def plot_2d(self, xframes=3, fn='', db_threshold=-40, norm=True, range=(-1, 1)):
         if not self.data:
             raise ValueError('The Array Factor has not yet been evaluated!')
         
@@ -190,7 +190,7 @@ class Array():
             else:
                 af = af / af.max()
         
-        plot_array_factor_2d(af, freq, xframes=xframes, fn=fn, db_threshold=db_threshold)
+        plot_array_factor_2d(af, freq, xframes=xframes, fn=fn, db_threshold=db_threshold, range=range)
     
     def plot_configuration(self):
         ant_x = self.element_positions[:, 0]

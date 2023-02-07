@@ -42,7 +42,7 @@ def plot_array_factor_1d(array_factor, u, freq, uv=0, axis='u', db_threshold=-40
     return
 
 
-def plot_array_factor_2d(array_factor, freq, db_threshold=-40, xframes=3, fn=''):
+def plot_array_factor_2d(array_factor, freq, db_threshold=-40, xframes=3, fn='', uv_range=(-1, 1)):
     if isinstance(freq, list | tuple | np.ndarray):
         xf = 1
         
@@ -55,14 +55,14 @@ def plot_array_factor_2d(array_factor, freq, db_threshold=-40, xframes=3, fn='')
         
         for idx, f in enumerate(freq):
             data = decibel(array_factor[idx])
-            image = frame[idx].imshow(data, origin='lower', vmin=db_threshold, vmax=0, extent=(-1, 1, -1, 1))
+            image = frame[idx].imshow(data, origin='lower', vmin=db_threshold, vmax=0, extent=(uv_range[0], uv_range[1], uv_range[0], uv_range[1]))
             
             frame[idx].update(dict(
                 title='{} MHz'.format(f),
                 xlabel=r'$u$',
                 ylabel=r'$v$',
-                xticks=np.linspace(-1, 1, 5),
-                yticks=np.linspace(-1, 1, 5)
+                xticks=np.linspace(uv_range[0], uv_range[1], 5),
+                yticks=np.linspace(uv_range[0], uv_range[1], 5)
             ))
             
             if idx > 0:
@@ -76,14 +76,14 @@ def plot_array_factor_2d(array_factor, freq, db_threshold=-40, xframes=3, fn='')
         fig, frame = plt.subplots(figsize=(5, 5), sharey=True, gridspec_kw=dict(wspace=0.16))
 
         data = decibel(array_factor)
-        image= frame.imshow(data, origin='lower', vmin=db_threshold, vmax=0, extent=(-1, 1, -1, 1))
+        image= frame.imshow(data, origin='lower', vmin=db_threshold, vmax=0, extent=(uv_range[0], uv_range[1], uv_range[0], uv_range[1]))
 
         frame.update(dict(
             title='{} MHz'.format(freq),
             xlabel=r'$u$',
             ylabel=r'$v$',
-            xticks=np.linspace(-1, 1, 5),
-            yticks=np.linspace(-1, 1, 5)
+            xticks=np.linspace(uv_range[0], uv_range[1], 5),
+            yticks=np.linspace(uv_range[0], uv_range[1], 5)
         ))
 
     cb_frame = fig.add_axes([0.92, 0.15, 0.04, 0.7])
