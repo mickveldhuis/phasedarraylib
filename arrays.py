@@ -31,6 +31,7 @@ class Array():
             raise ValueError('Passed array is not of the right shape. Expects (N, 2), got {}'.format(positions.shape))
 
         self.element_positions = positions
+        self.element_count = positions.shape[0]
 
     def set_orientation(self, angle, center=np.array([0, 0]), show_plot=False):
         self.element_positions = rotate(self.element_positions, center, angle)
