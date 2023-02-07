@@ -190,7 +190,7 @@ class Array():
             else:
                 af = af / af.max()
         
-        plot_array_factor_2d(af, freq, xframes=xframes, fn=fn, db_threshold=db_threshold, range=range)
+        plot_array_factor_2d(af, freq, xframes=xframes, fn=fn, db_threshold=db_threshold, uv_range=range)
     
     def plot_configuration(self):
         ant_x = self.element_positions[:, 0]

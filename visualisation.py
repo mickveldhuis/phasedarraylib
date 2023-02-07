@@ -55,7 +55,7 @@ def plot_array_factor_2d(array_factor, freq, db_threshold=-40, xframes=3, fn='',
         
         for idx, f in enumerate(freq):
             data = decibel(array_factor[idx])
-            image = frame[idx].imshow(data, origin='lower', vmin=db_threshold, vmax=0, extent=(uv_range[0], uv_range[1], uv_range[0], uv_range[1]))
+            image = frame[idx].imshow(data, origin='lower', vmin=db_threshold, vmax=0, extent=(range[0], range[1], range[0], uv_range[1]))
             
             frame[idx].update(dict(
                 title='{} MHz'.format(f),
