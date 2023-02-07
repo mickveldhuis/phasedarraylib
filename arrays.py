@@ -17,11 +17,7 @@ class Array():
         """
         self.element_count = None
         self.element_positions = None
-        self.weights = None
 
-        self.steering_direction = None
-        self.steering_phase = None
-        
         self.data = None
         
         # Add a vectorized instance of the array_factor function
@@ -201,49 +197,6 @@ class UniformLinearArray(Array):
     
         self.element_spacing = spacing
         self.element_positions = linear(length, spacing)
-    
-        self.weights = np.ones(length) / length
-    
-    def analytical_array_factor(self, u, freq, scan_u=0):
-        lam = frequency_to_wavelength(freq)
-        
-        x = np.pi/lam * self.element_spacing * u
-
-        if scan_u != 0:
-            x -= np.pi/lam * self.element_spacing * u_scan
-
-        af = np.sin(self.element_count * x)/np.sin(x)
-        
-        return af/self.element_count
-    
-    def analytical_nulls(self, freq, m=1):
-        lam = frequency_to_wavelength(freq)
-
-        return m * lam / (self.element_count * self.element_spacing)
-    
-    def nullnullbeamwidth(self, freq, deg=False):
-        u_0 = self.analytical_nulls(freq)
-
-        bw = 2*np.arcsin(u_0)
-        
-        if deg:
-            bw = np.degrees(bw)
-
-        return bw, u_0
-
-    def halfpowerbeamwidth(self, freq, deg):
-        def root_function(x):
-            return np.power(self.analytical_array_factor(x, freq), 2) - 0.5
-
-        u = opt.brentq(root_function, 1e-10, 1)
-        
-        hpbw_u = 2*u
-        hpbw_theta = 2*np.arcsin(u)
-
-        if deg:
-            hpbw_theta = np.degrees(hpbw_theta)
-
-        return hpbw_theta, hpbw_u 
 
 
 class PlanarArray(Array):
@@ -259,8 +212,6 @@ class PlanarArray(Array):
             self.element_spacing = spacing
             self.element_positions = rectangular(*shape, spacing)
         
-            self.weights = np.ones(self.element_count) / self.element_count
-    
     def from_arrays(self, arrays):
         positions = None
         
@@ -274,7 +225,12 @@ class PlanarArray(Array):
 
         self.element_positions = np.array(positions)
         self.element_count = self.element_positions.shape[0]
-        self.weights = self.weights = np.ones(self.element_count) / self.element_count
+
+
+class UniformRectangularArray(PlanarArray):
+    """Class representing a URA."""
+    def __init__(self, shape, spacing):
+        super().__init__(shape=shape, spacing=spacing)
 
 
 class RandomRectangularArray(Array):
@@ -283,10 +239,7 @@ class RandomRectangularArray(Array):
         super().__init__()
         
         self.element_count = size
-
         self.element_positions = random_rectangle(size, extent=extent)
-    
-        self.weights = np.ones(size) / size
 
 
 class RandomCircularArray(Array):
@@ -295,7 +248,4 @@ class RandomCircularArray(Array):
         super().__init__()
         
         self.element_count = size
-
         self.element_positions = random_circle(size, radial_extent)
-    
-        self.weights = np.ones(size) / size

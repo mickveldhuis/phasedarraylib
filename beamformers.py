@@ -1,5 +1,7 @@
 import numpy as np
 
+from phasedarraylib.utilities import frequency_to_wavelength
+
 class PhaseShiftBeamformer():
     def __init__(self, array, carrier_frequency, steering_angle):
         self.array = array
@@ -22,11 +24,14 @@ class PhaseShiftBeamformer():
             the element weights 
         """    
 
-    def sum(self):
-        pass
-
-    def weighted_sum(self, weighting_scheme='uniform', args=None):
-        pass
+    def output(self, weighted_output=False):
+        return
+        
+    
+    def phases(self):
+        lam = frequency_to_wavelength(self.frequency)
+        
+        return np.exp(1j*2*np.pi/lam * (uv @ self.element_positions.T))
 
     def array_factor(self, u, v, freq):
         """"Returns the array vector given direction cosines u, v.
