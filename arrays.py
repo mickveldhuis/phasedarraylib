@@ -18,6 +18,7 @@ class Array():
         """
         self.element_count = None
         self.element_positions = None
+        self.weights = None
 
         self.data = None
         
@@ -31,9 +32,13 @@ class Array():
             raise ValueError('Passed array is not of the right shape. Expects (N, 2), got {}'.format(positions.shape))
 
         self.element_positions = positions
-        self.element_count = positions.shape[0]
 
-    def set_orientation(self, angle, center=np.array([0, 0]), show_plot=False):
+        size = positions.shape[0]
+        self.element_count = size
+        self.weights = np.ones(size)
+
+    def set_orientation(self, angle, center=np.import pandas as pd
+df = pd.read_csv('myfile.csv', sep=',', header=None)array([0, 0]), show_plot=False):
         self.element_positions = rotate(self.element_positions, center, angle)
         
         if show_plot:
@@ -200,6 +205,8 @@ class UniformLinearArray(Array):
         self.element_spacing = spacing
         self.element_positions = linear(length, spacing)
 
+        self.weights = np.ones(self.element_count)
+
 
 class PlanarArray(Array):
     """Class representing a planar antenna array."""
@@ -213,6 +220,8 @@ class PlanarArray(Array):
         
             self.element_spacing = spacing
             self.element_positions = rectangular(*shape, spacing)
+
+            self.weights = np.ones(self.element_count)
         
     def from_arrays(self, arrays):
         positions = None
@@ -244,6 +253,9 @@ class RandomRectangularArray(Array):
         self.element_positions = random_rectangle(size, extent=extent)
 
 
+        self.weights = np.ones(self.element_count)
+
+
 class RandomCircularArray(Array):
     """Class representing a planar antenna array."""
     def __init__(self, size, radial_extent):
@@ -251,3 +263,5 @@ class RandomCircularArray(Array):
         
         self.element_count = size
         self.element_positions = random_circle(size, radial_extent)
+
+        self.weights = np.ones(self.element_count)
