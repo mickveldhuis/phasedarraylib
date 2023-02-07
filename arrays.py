@@ -37,8 +37,7 @@ class Array():
         self.element_count = size
         self.weights = np.ones(size)
 
-    def set_orientation(self, angle, center=np.import pandas as pd
-df = pd.read_csv('myfile.csv', sep=',', header=None)array([0, 0]), show_plot=False):
+    def set_orientation(self, angle, center=np.array([0, 0]), show_plot=False):
         self.element_positions = rotate(self.element_positions, center, angle)
         
         if show_plot:
