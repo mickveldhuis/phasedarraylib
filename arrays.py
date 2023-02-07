@@ -19,6 +19,7 @@ class Array():
         self.element_count = None
         self.element_positions = None
         self.weights = None
+        self.steering_direction = None
 
         self.data = None
         
