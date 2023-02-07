@@ -2,8 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize as opt
 
-from phasedarraylib.utilities import rotate, plot_configuration, plot_array_factor_1d, plot_array_factor_2d, arg_closest, frequency_to_wavelength
+from phasedarraylib.utilities import rotate, arg_closest, frequency_to_wavelength
 from phasedarraylib.geometry import linear, rectangular, random_rectangle, random_circle
+from phasedarraylib.visualisation import plot_configuration, plot_array_factor_1d, plot_array_factor_2d
 
 class Array():
     """Class representing an arbitrary antenna array."""
