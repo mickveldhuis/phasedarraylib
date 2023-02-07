@@ -1,2 +1,3 @@
-# phasedarraylib
-A library for simulating phased arrays
+# PhasedArrayLib
+
+A library for simulating phased arrays.
