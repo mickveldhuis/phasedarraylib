@@ -55,5 +55,6 @@ def rotate(points, origin, angle):
 
 def arg_closest(array, value):
     idx = np.abs(array - value).argmin()
+    error = np.abs(array[idx] - value)
 
-    return idx
+    return idx, error
