@@ -112,7 +112,7 @@ class Array():
         v_vals: float
             the direction cosine sampled in the y-direction
         """
-        spacing = np.abs(range.min() - range.max())/sample_count
+        spacing = abs(range[1]-range[0])/sample_count
         uv_vals = np.arange(range[0], range[1] + spacing, spacing)
 
         angles = np.arange(180, 360 + spacing, spacing)
