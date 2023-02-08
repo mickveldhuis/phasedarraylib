@@ -90,7 +90,7 @@ class Array():
         
         return af
 
-    def evaluate_array_factor(self, freq, range=(-1, 1), spacing=0.01, sample_angles=False):
+    def evaluate_array_factor(self, freq, range=(-1, 1), sample_count=100, sample_angles=False):
         """"Returns the array vector.
 
         Parameters
@@ -112,6 +112,7 @@ class Array():
         v_vals: float
             the direction cosine sampled in the y-direction
         """
+        spacing = np.abs(range.min() - range.max())/sample_count
         uv_vals = np.arange(range[0], range[1] + spacing, spacing)
 
         angles = np.arange(180, 360 + spacing, spacing)
